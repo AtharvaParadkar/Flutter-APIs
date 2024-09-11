@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_apis/get_api_call_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.blue,brightness: Brightness.dark),
+      theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.dark),
       debugShowCheckedModeBanner: false,
       title: 'QR code Scanner',
       home: const Home(),
@@ -27,7 +28,12 @@ class Home extends StatelessWidget {
       ),
       body: Center(
         child: FilledButton.tonal(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CategoryScreen()),
+            );
+          },
           child: const Text(
             'Show Data!',
             style: TextStyle(fontSize: 20),
