@@ -3,7 +3,7 @@ import 'package:flutter_apis/model/get_api_call_model.dart';
 import 'package:get/get.dart';
 
 class CategoryController extends GetxController {
-  var categories = <CategoryModel>[];
+  var categories = <CategoryModel>[].obs;
   var isLoading = true.obs;
 
   @override
