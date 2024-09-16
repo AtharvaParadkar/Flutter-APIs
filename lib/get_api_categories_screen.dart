@@ -43,25 +43,6 @@ class CategoryDetailScreen extends StatelessWidget {
                 );
         },
       ),
-      // Obx(() {
-      //   if (categoryDetailController.isLoading.value) {
-      //     return const Center(
-      //       child: CircularProgressIndicator(),
-      //     );
-      //   } else if (categoryDetailController.categoryListMap.isEmpty) {
-      //     return const Center(child: Text('No Data found'));
-      //   } else {
-      //     return ListView.builder(
-      //       itemCount: categoryDetailController.categoryListMap.length,
-      // itemBuilder: (context, index) {
-      //   return ListTile(
-      //     title: Text(categoryDetailController.categoryListMap[index].name),
-      //     subtitle: Text(categoryDetailController.categoryListMap[index].slug),
-      //   );
-      // },
-      //     );
-      //   }
-      // }),
     );
   }
 }
