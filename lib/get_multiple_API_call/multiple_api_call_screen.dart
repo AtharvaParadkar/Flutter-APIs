@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_apis/get_multiple_API_call/model/multiple_api_call_model.dart';
 import 'package:flutter_apis/get_multiple_API_call/multiple_api_call_controller/multiple_api_controller.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +22,7 @@ class MultipleApiCallScreen extends StatelessWidget {
         children: [
           RecipeCallScreen(),
           PostsCallScreen(),
+          PostsTagCallScreen(),
         ],
       ),
     );
@@ -60,7 +62,7 @@ class PostsCallScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (postsController.isLoading.value) {
+      if (postsController.isLoading2.value) {
         return const Center(child: CircularProgressIndicator());
       } else if (postsController.posts.isEmpty) {
         return const Text('No Foods Found');
@@ -74,5 +76,44 @@ class PostsCallScreen extends StatelessWidget {
             });
       }
     });
+  }
+}
+
+class PostsTagCallScreen extends StatelessWidget {
+  PostsTagCallScreen({super.key});
+
+  final PostsTagController postsTagController = PostsTagController();
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<PostsTagController>(
+      init: postsTagController,
+      builder: (control) {
+        return control.postsTagList.isEmpty
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : ListView.builder(
+                itemCount: control.postsTagList.length,
+                itemBuilder: (ctx, i) {
+                  PostsTagModel post = control.postsTagList[i];
+                  return ListTile(
+                    title: Text(post.postTag),
+                    subtitle: Text(post.name),
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('URL: ${post.url}'),
+                          backgroundColor: const Color.fromARGB(255, 0, 255, 8),
+                          duration: const Duration(seconds: 2),
+                          shape: const StadiumBorder(),
+                        ),
+                      );
+                    },
+                  );
+                },
+              );
+      },
+    );
   }
 }
