@@ -9,11 +9,11 @@ class RecipeModel{
 }
 
 class PostsModel{
-  final String post;
+  final String postTag;
 
-  PostsModel({required this.post});
+  PostsModel({required this.postTag});
 
   factory PostsModel.fromJson(String json){
-    return PostsModel(post: json);
+    return PostsModel(postTag: json);
   }
 }

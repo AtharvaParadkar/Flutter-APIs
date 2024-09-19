@@ -20,9 +20,7 @@ class MultipleApiCallScreen extends StatelessWidget {
         ),
         children: [
           RecipeCallScreen(),
-          // CategoryScreen(),
-          // CategoryDetailScreen(),
-          // CategoryDetailScreen(),
+          PostsCallScreen(),
         ],
       ),
     );
@@ -43,12 +41,37 @@ class RecipeCallScreen extends StatelessWidget {
         return const Text('No Foods Found');
       } else {
         return ListView.builder(
-          itemCount: recipeController.recipies.length,
-          itemBuilder: (context, i) {
-            return ListTile(
-              title: Text(recipeController.recipies[i].foods),
-            );
-        });
+            itemCount: recipeController.recipies.length,
+            itemBuilder: (context, i) {
+              return ListTile(
+                title: Text(recipeController.recipies[i].foods),
+              );
+            });
+      }
+    });
+  }
+}
+
+class PostsCallScreen extends StatelessWidget {
+  PostsCallScreen({super.key});
+
+  final PostsController postsController = Get.put(PostsController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() {
+      if (postsController.isLoading.value) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (postsController.posts.isEmpty) {
+        return const Text('No Foods Found');
+      } else {
+        return ListView.builder(
+            itemCount: postsController.posts.length,
+            itemBuilder: (context, i) {
+              return ListTile(
+                title: Text(postsController.posts[i].postTag),
+              );
+            });
       }
     });
   }

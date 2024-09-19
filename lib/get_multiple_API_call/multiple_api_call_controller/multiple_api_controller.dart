@@ -26,3 +26,28 @@ class RecipeController extends GetxController{
     }
   }
 }
+
+class PostsController extends GetxController{
+  var posts = <PostsModel>[].obs;
+  var isLoading=true.obs;
+
+  @override
+  void onInit(){
+    fetchPosts();
+    super.onInit();
+  }
+
+  void fetchPosts() async{
+    try{
+      isLoading(true);
+      var postsList=await PostsService().fetchPosts();
+      if(postsList.isNotEmpty){
+        posts.addAll(postsList);
+      }
+    }catch(e){
+      print('Error $e');
+    }finally{
+      isLoading(false);
+    }
+  }
+}

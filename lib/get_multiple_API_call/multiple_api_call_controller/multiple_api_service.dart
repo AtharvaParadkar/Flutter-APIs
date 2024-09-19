@@ -15,3 +15,17 @@ class RecipeService{
     }
   }
 }
+
+
+class PostsService{
+  Future<List<PostsModel>> fetchPosts()async{
+    final response=await http.get(Uri.parse('https://dummyjson.com/posts/tag-list'));
+
+    if(response.statusCode==200){
+      List<dynamic>post=jsonDecode(response.body);
+      return post.map((po)=>PostsModel.fromJson(po)).toList();
+    }else{
+      throw Exception('Failed to load Posts');
+    }
+  }
+}
