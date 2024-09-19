@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_apis/get_api_call_screen.dart';
 import 'package:flutter_apis/get_api_categories_screen.dart';
+import 'package:flutter_apis/get_multiple_API_call/multiple_api_call_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -39,10 +40,11 @@ class Home extends StatelessWidget {
                 );
               },
               child: const Text(
-                'Show Data!',
+                'Show List API Data!',
                 style: TextStyle(fontSize: 20),
               ),
             ),
+            const SizedBox(height: 10),
             FilledButton.tonal(
               onPressed: () {
                 Navigator.push(
@@ -51,7 +53,20 @@ class Home extends StatelessWidget {
                 );
               },
               child: const Text(
-                'Show Data2',
+                'Show List Categories Data',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            const SizedBox(height: 10),
+            FilledButton.tonal(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const MultipleApiCallScreen()),
+                );
+              },
+              child: const Text(
+                'Show Multiple Api Data',
                 style: TextStyle(fontSize: 20),
               ),
             ),
