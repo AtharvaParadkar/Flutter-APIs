@@ -23,6 +23,7 @@ class MultipleApiCallScreen extends StatelessWidget {
           RecipeCallScreen(),
           PostsCallScreen(),
           PostsTagCallScreen(),
+          MoviesCallScreen(),
         ],
       ),
     );
@@ -113,6 +114,58 @@ class PostsTagCallScreen extends StatelessWidget {
                   );
                 },
               );
+      },
+    );
+  }
+}
+
+class MoviesCallScreen extends StatelessWidget {
+  MoviesCallScreen({super.key});
+
+  final MoviesController moviesController = MoviesController();
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<MoviesController>(
+      init: moviesController,
+      builder: (con) {
+        return con.moviesList.isEmpty
+            ? const Center(child: CircularProgressIndicator())
+            : ListView.builder(
+                itemCount: con.moviesList.length,
+                itemBuilder: (ctx, i) {
+                  MoviesModel movie = con.moviesList[i];
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(movie.movieName),
+                      const SizedBox(height: 5),
+                      Text(movie.imdbUrl),
+                      const SizedBox(height: 5),
+                      Text(movie.id.toString()),
+                      const SizedBox(height: 5),
+                      Text(movie.rating.toString()),
+                      const SizedBox(height: 5),
+                      Image.network(
+                        height: 100,
+                        width: 100,
+                        movie.movieImage,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Icon(Icons.error);
+                        },
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return const CircularProgressIndicator();
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                    ],
+                  );
+                });
       },
     );
   }

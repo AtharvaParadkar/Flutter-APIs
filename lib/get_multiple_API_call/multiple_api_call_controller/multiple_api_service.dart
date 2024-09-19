@@ -32,7 +32,7 @@ class PostsService {
 
 class PostsTagService {
   static const String _url = 'https://dummyjson.com/posts/tags';
-  
+
   Future<List<PostsTagModel>> fetchPostsTag() async {
     try {
       final response = await http.get(Uri.parse(_url));
@@ -45,6 +45,25 @@ class PostsTagService {
       }
     } catch (c) {
       throw Exception('Failed to load Posts $c');
+    }
+  }
+}
+
+class MoviesService{
+  static const String _movieUrl='https://dummyapi.online/api/movies';
+
+  Future<List<MoviesModel>> fetchMovies() async{
+    try{
+      final response = await http.get(Uri.parse(_movieUrl));
+
+      if(response.statusCode==200){
+        List<dynamic> movies = jsonDecode(response.body);
+        return movies.map((mov)=>MoviesModel.fromJson(mov)).toList();
+      }else{
+        throw Exception('Failed to load movies');
+      }
+    }catch(m){
+      throw Exception('Failed to Load Movies $m');
     }
   }
 }

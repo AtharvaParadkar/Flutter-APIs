@@ -76,3 +76,24 @@ class PostsTagController extends GetxController {
     }
   }
 }
+
+class MoviesController extends GetxController{
+  List<MoviesModel> moviesList=[];
+
+  final MoviesService _moviesService=MoviesService();
+
+  @override
+  void onInit(){
+    fetchMovie();
+    super.onInit();
+  }
+
+  fetchMovie() async{
+    try{
+      moviesList =await _moviesService.fetchMovies();
+      update();
+    }catch(m){
+      print('Error $m');
+    }
+  }
+}

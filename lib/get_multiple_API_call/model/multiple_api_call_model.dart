@@ -31,3 +31,28 @@ class PostsTagModel {
     );
   }
 }
+
+class MoviesModel {
+  final String movieName, movieImage, imdbUrl;
+  final int id;
+  final double rating;
+
+  MoviesModel(
+      {required this.movieName,
+      required this.movieImage,
+      required this.imdbUrl,
+      required this.id,
+      required this.rating});
+
+  factory MoviesModel.fromJson(Map<dynamic, dynamic> json) {
+    return MoviesModel(
+      movieName: json['movie'],
+      movieImage: json['image'],
+      imdbUrl: json['imdb_url'],
+      id: json['id'],
+      rating: (json['rating'] is int)
+          ? (json['rating'] as int).toDouble()
+          : json['rating'],
+    );
+  }
+}
