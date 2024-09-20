@@ -136,7 +136,7 @@ class MoviesCallScreen extends StatelessWidget {
                 itemBuilder: (ctx, i) {
                   MoviesModel movie = con.moviesList[i];
                   return Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(movie.movieName),
                       const SizedBox(height: 5),
