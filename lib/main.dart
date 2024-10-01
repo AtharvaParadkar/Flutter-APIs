@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_apis/get_api_call_screen.dart';
 import 'package:flutter_apis/get_api_categories_screen.dart';
 import 'package:flutter_apis/get_multiple_API_call/multiple_api_call_screen.dart';
+import 'package:flutter_apis/post_api/post_api_call_screen.dart';
+import 'package:gap/gap.dart';
 import 'package:local_auth/local_auth.dart';
 
 void main() => runApp(const MyApp());
@@ -75,7 +77,7 @@ class Home extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            const SizedBox(height: 10),
+            const Gap(10),
             FilledButton.tonal(
               onPressed: () {
                 Navigator.push(
@@ -89,7 +91,7 @@ class Home extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            const SizedBox(height: 10),
+            const Gap(10),
             FilledButton.tonal(
               onPressed: () {
                 Navigator.push(
@@ -103,6 +105,21 @@ class Home extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
             ),
+            const Gap(10),
+            FilledButton.tonal(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PostApiCallScreen()),
+                );
+              },
+              child: const Text(
+                'Post Api Data',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            const Gap(10),
           ],
         ),
       ),
