@@ -4,6 +4,7 @@ import 'package:flutter_apis/get_api_call_screen.dart';
 import 'package:flutter_apis/get_api_categories_screen.dart';
 import 'package:flutter_apis/get_multiple_API_call/multiple_api_call_screen.dart';
 import 'package:flutter_apis/get_photos_api_call/get_photos_api_callscreen.dart';
+import 'package:flutter_apis/get_products_api_call/get_products_api_callscreen.dart';
 import 'package:flutter_apis/post_api/post_api_call_screen.dart';
 import 'package:gap/gap.dart';
 import 'package:local_auth/local_auth.dart';
@@ -117,6 +118,20 @@ class Home extends StatelessWidget {
               },
               child: const Text(
                 'Show Photos Api Data',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            const Gap(10),
+            FilledButton.tonal(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => GetProductsApiCallscreen()),
+                );
+              },
+              child: const Text(
+                'Show Products Api Data',
                 style: TextStyle(fontSize: 20),
               ),
             ),
