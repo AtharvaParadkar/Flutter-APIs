@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class GetProductsApiCallscreen extends StatelessWidget {
   GetProductsApiCallscreen({super.key});
 
-  final ProductsController productsController = ProductsController();
+  final ProductsController productsController = Get.put(ProductsController());
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,8 @@ class GetProductsApiCallscreen extends StatelessWidget {
                             ),
                           ),
                           Text('\u{20B9} ${product.price.toString()}'),
-                          // Text(product.rating)
+                          Text(product.rating.rate.toString()),
+                          Text(product.rating.count.toString()),
                         ],
                       ),
                     );

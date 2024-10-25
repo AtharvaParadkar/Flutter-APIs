@@ -2,7 +2,7 @@ class ProductsModel {
   final int id;
   final double price;
   final String title, description, category, imageUrl;
-  final Map<String, dynamic> rating;
+  final Rating rating;
 
   ProductsModel({
     required this.id,
@@ -22,7 +22,21 @@ class ProductsModel {
       description: json['description'],
       category: json['category'],
       imageUrl: json['image'],
-      rating: json['rating'],
+      rating: Rating.fromJson(json['rating']),
+    );
+  }
+}
+
+class Rating {
+  final double rate;
+  final int count;
+
+  Rating({required this.rate, required this.count});
+
+  factory Rating.fromJson(Map<String, dynamic> json) {
+    return Rating(
+      rate: (json['rate'] as num).toDouble(),
+      count: json['count'],
     );
   }
 }
