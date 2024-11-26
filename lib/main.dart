@@ -6,6 +6,7 @@ import 'package:flutter_apis/get_multiple_API_call/multiple_api_call_screen.dart
 import 'package:flutter_apis/get_photos_api_call/get_photos_api_callscreen.dart';
 import 'package:flutter_apis/get_products_api_call/get_products_api_callscreen.dart';
 import 'package:flutter_apis/post_api/post_api_call_screen.dart';
+import 'package:flutter_apis/post_api_login.dart/login_email_phone.dart';
 import 'package:gap/gap.dart';
 import 'package:local_auth/local_auth.dart';
 
@@ -46,7 +47,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.dark),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: const Color.fromARGB(255, 30, 40, 50),
+      ),
       debugShowCheckedModeBanner: false,
       title: 'API',
       home: const Home(),
@@ -62,6 +67,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        backgroundColor: Colors.transparent,
       ),
       body: Center(
         child: Column(
@@ -140,12 +146,25 @@ class Home extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => PostApiCallScreen()),
+                  MaterialPageRoute(builder: (context) => PostApiCallScreen()),
                 );
               },
               child: const Text(
                 'Post Api Data',
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+            const Gap(10),
+            FilledButton.tonal(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const LoginEmailPhone()),
+                );
+              },
+              child: const Text(
+                'Post Api Login',
                 style: TextStyle(fontSize: 20),
               ),
             ),
