@@ -17,6 +17,7 @@ dependencies:
   url_launcher: ^6.3.0
   local_auth: ^2.3.0
   gap: ^3.0.1
+  pinput: ^5.0.0
 
 
 dev_dependencies:
