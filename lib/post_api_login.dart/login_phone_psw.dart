@@ -12,8 +12,8 @@ class LoginPhonePsw extends StatefulWidget {
 
 class _LoginPhonePswState extends State<LoginPhonePsw> {
   final formKey = GlobalKey<FormState>();
-  final passwordController = TextEditingController(),
-      phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   bool showTorch = false;
   @override
   Widget build(BuildContext context) {

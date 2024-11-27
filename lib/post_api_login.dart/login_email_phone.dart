@@ -8,8 +8,8 @@ class LoginEmailPhone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    final emailController = TextEditingController(),
-        phoneController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController phoneController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -81,7 +81,8 @@ class LoginEmailPhone extends StatelessWidget {
                       final isValid = formKey.currentState!.validate();
                       if (isValid) {
                         formKey.currentState!.save();
-                        print("${emailController.text} ${phoneController.text}");
+                        print(
+                            "${emailController.text} ${phoneController.text}");
                         final snacks = SnackBar(
                           content: Center(
                             child: Text(
@@ -89,7 +90,8 @@ class LoginEmailPhone extends StatelessWidget {
                               style: const TextStyle(color: Colors.black),
                             ),
                           ),
-                          backgroundColor: const Color.fromARGB(255, 90, 100, 110),
+                          backgroundColor:
+                              const Color.fromARGB(255, 90, 100, 110),
                           shape: const StadiumBorder(),
                           animation: const AlwaysStoppedAnimation(10),
                           duration: const Duration(seconds: 5),
@@ -99,7 +101,7 @@ class LoginEmailPhone extends StatelessWidget {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(255, 60, 70, 80)),
+                        backgroundColor: const Color.fromARGB(255, 60, 70, 80)),
                     child: const Text('Login'),
                   ),
                 ],

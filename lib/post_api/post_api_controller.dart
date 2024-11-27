@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PostApiController extends GetxController {
-  final usernameController = TextEditingController(),
-      emailController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   var selectGender = 'Male'.obs;
 
   Future<void> submitForm() async {
@@ -19,8 +19,6 @@ class PostApiController extends GetxController {
         borderColor: const Color.fromARGB(255, 255, 0, 0),
       );
     }
-
-    
   }
 
   @override

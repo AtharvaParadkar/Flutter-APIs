@@ -8,8 +8,8 @@ class OtpLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    final phoneController = TextEditingController(),
-        otpController = TextEditingController();
+    final TextEditingController phoneController = TextEditingController();
+    final TextEditingController otpController = TextEditingController();
     final focusNode = FocusNode();
 
     final defaultPinTheme = PinTheme(
