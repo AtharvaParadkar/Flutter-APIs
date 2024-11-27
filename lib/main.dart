@@ -8,6 +8,7 @@ import 'package:flutter_apis/get_products_api_call/get_products_api_callscreen.d
 import 'package:flutter_apis/post_api/post_api_call_screen.dart';
 import 'package:flutter_apis/post_api_login.dart/login_email_phone.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
 
 void main() => runApp(const MyApp());
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
         brightness: Brightness.dark,
