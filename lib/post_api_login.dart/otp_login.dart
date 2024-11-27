@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:pinput/pinput.dart';
 
-class OtpLogin extends StatefulWidget {
+class OtpLogin extends StatelessWidget {
   const OtpLogin({super.key});
 
-  @override
-  State<OtpLogin> createState() => _OtpLoginState();
-}
-
-class _OtpLoginState extends State<OtpLogin> {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
