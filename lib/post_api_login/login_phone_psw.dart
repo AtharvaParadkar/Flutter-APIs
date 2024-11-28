@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_apis/post_api_login.dart/otp_login.dart';
+import 'package:flutter_apis/post_api_login/otp_login.dart';
 import 'package:flutter_apis/utils/custom_clipper.dart';
 import 'package:gap/gap.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_apis/post_api_login.dart/login_phone_psw.dart';
+import 'package:flutter_apis/post_api_login/login_phone_psw.dart';
 import 'package:gap/gap.dart';
 
 class LoginEmailPhone extends StatelessWidget {

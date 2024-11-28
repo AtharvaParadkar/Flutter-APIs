@@ -6,7 +6,7 @@ import 'package:flutter_apis/get_multiple_API_call/multiple_api_call_screen.dart
 import 'package:flutter_apis/get_photos_api_call/get_photos_api_callscreen.dart';
 import 'package:flutter_apis/get_products_api_call/get_products_api_callscreen.dart';
 import 'package:flutter_apis/post_api/post_api_call_screen.dart';
-import 'package:flutter_apis/post_api_login.dart/login_email_phone.dart';
+import 'package:flutter_apis/post_api_login/login_email_phone.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:local_auth/local_auth.dart';
