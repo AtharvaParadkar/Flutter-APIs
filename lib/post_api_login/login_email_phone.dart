@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_apis/post_api_login/login_phone_psw.dart';
+import 'package:flutter_apis/post_api_login/post_api_login_controller.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
 class LoginEmailPhone extends StatelessWidget {
-  const LoginEmailPhone({super.key});
+  LoginEmailPhone({super.key});
+
+  final _postLoginController = Get.put(PostApiLoginController());
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController phoneController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
@@ -26,7 +28,7 @@ class LoginEmailPhone extends StatelessWidget {
                 children: [
                   TextFormField(
                     maxLength: 50,
-                    controller: emailController,
+                    controller: _postLoginController.emailController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -51,7 +53,7 @@ class LoginEmailPhone extends StatelessWidget {
                   const Gap(15),
                   TextFormField(
                     maxLength: 10,
-                    controller: phoneController,
+                    controller: _postLoginController.phoneController,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -77,27 +79,13 @@ class LoginEmailPhone extends StatelessWidget {
                   ),
                   const Gap(15),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       final isValid = formKey.currentState!.validate();
                       if (isValid) {
                         formKey.currentState!.save();
                         print(
-                            "${emailController.text} ${phoneController.text}");
-                        final snacks = SnackBar(
-                          content: Center(
-                            child: Text(
-                              '${emailController.text} ${phoneController.text}',
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                          ),
-                          backgroundColor:
-                              const Color.fromARGB(255, 90, 100, 110),
-                          shape: const StadiumBorder(),
-                          animation: const AlwaysStoppedAnimation(10),
-                          duration: const Duration(seconds: 5),
-                          behavior: SnackBarBehavior.floating,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snacks);
+                            "${_postLoginController.emailController.text} ${_postLoginController.phoneController.text}");
+                        await _postLoginController.submitEmailLogin();
                       }
                     },
                     style: ElevatedButton.styleFrom(

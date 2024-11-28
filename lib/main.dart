@@ -161,7 +161,7 @@ class Home extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const LoginEmailPhone()),
+                      builder: (context) => LoginEmailPhone()),
                 );
               },
               child: const Text(
