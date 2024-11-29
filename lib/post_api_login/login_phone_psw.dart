@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_apis/post_api_login/otp_login.dart';
+import 'package:flutter_apis/post_api_login/post_api_login_controller.dart';
 import 'package:flutter_apis/utils/custom_clipper.dart';
 import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
 class LoginPhonePsw extends StatefulWidget {
   const LoginPhonePsw({super.key});
@@ -10,10 +12,10 @@ class LoginPhonePsw extends StatefulWidget {
   State<LoginPhonePsw> createState() => _LoginPhonePswState();
 }
 
+final _postLoginController = Get.put(PostApiLoginController());
+
 class _LoginPhonePswState extends State<LoginPhonePsw> {
   final formKey = GlobalKey<FormState>();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
   bool showTorch = false;
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class _LoginPhonePswState extends State<LoginPhonePsw> {
                 children: [
                   TextFormField(
                     maxLength: 10,
-                    controller: phoneController,
+                    controller: _postLoginController.phoneController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20),
@@ -69,7 +71,7 @@ class _LoginPhonePswState extends State<LoginPhonePsw> {
                         ),
                         // padding: const EdgeInsets.symmetric(vertical: 10),
                         child: TextFormField(
-                          controller: passwordController,
+                          controller: _postLoginController.passwordController,
                           obscureText: true,
                           onChanged: (value) {
                             setState(() {});
@@ -127,7 +129,8 @@ class _LoginPhonePswState extends State<LoginPhonePsw> {
                                     padding: const EdgeInsets.only(left: 10),
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      passwordController.text,
+                                      _postLoginController
+                                          .passwordController.text,
                                       style: const TextStyle(
                                           fontSize: 18, color: Colors.black),
                                       maxLines: 1,
@@ -141,27 +144,13 @@ class _LoginPhonePswState extends State<LoginPhonePsw> {
                   ),
                   const Gap(15),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
                       final isValid = formKey.currentState!.validate();
                       if (isValid) {
                         formKey.currentState!.save();
                         print(
-                            "${phoneController.text} ${passwordController.text}");
-                        final snacks = SnackBar(
-                          content: Center(
-                            child: Text(
-                              '${phoneController.text} ${passwordController.text}',
-                              style: const TextStyle(color: Colors.black),
-                            ),
-                          ),
-                          backgroundColor:
-                              const Color.fromARGB(255, 90, 100, 110),
-                          shape: const StadiumBorder(),
-                          animation: const AlwaysStoppedAnimation(10),
-                          duration: const Duration(seconds: 5),
-                          behavior: SnackBarBehavior.floating,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snacks);
+                            "${_postLoginController.phoneController.text} ${_postLoginController.passwordController.text}");
+                      await _postLoginController.submitPhonePasswordLogin();
                       }
                     },
                     style: ElevatedButton.styleFrom(

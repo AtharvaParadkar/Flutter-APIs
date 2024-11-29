@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 class PostApiLoginController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   Future<void> submitEmailLogin() async {
     String email = emailController.text;
@@ -27,6 +28,49 @@ class PostApiLoginController extends GetxController {
         await PostApiLoginRepository.submitUserEmailPhone(email, phone);
 
     if (isSuccess) {
+      Get.snackbar(
+        'Success',
+        'Data Submitted successfully',
+        snackStyle: SnackStyle.FLOATING,
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: const Color.fromARGB(255, 0, 250, 8).withOpacity(0.1),
+        duration: const Duration(seconds: 5),
+        isDismissible: true,
+      );
+    } else {
+      Get.snackbar(
+        'Error',
+        'Failed to Submit Data',
+        snackStyle: SnackStyle.FLOATING,
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: const Color.fromARGB(255, 255, 0, 0).withOpacity(0.1),
+        duration: const Duration(seconds: 5),
+        isDismissible: true,
+      );
+    }
+  }
+
+  Future<void> submitPhonePasswordLogin() async {
+    String phone = phoneController.text;
+    String password = passwordController.text;
+
+    if (phone.isEmpty || password.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Fill all the Fields',
+        snackStyle: SnackStyle.FLOATING,
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: const Color.fromARGB(255, 255, 0, 0).withOpacity(0.1),
+        duration: const Duration(seconds: 5),
+        isDismissible: true,
+      );
+      return;
+    }
+
+    final isSuccesss =
+        await PostApiLoginRepository.submitUserPhonePassword(phone, password);
+
+    if (isSuccesss) {
       Get.snackbar(
         'Success',
         'Data Submitted successfully',

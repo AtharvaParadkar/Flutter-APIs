@@ -18,4 +18,22 @@ class PostApiLoginRepository {
       return false;
     }
   }
+
+  static Future<bool> submitUserPhonePassword(String phone, password) async {
+    try {
+      final result = await PostApiLoginService.postUserEmailPhone({
+        'phone': phone,
+        'password': password,
+      });
+
+      if (result) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (c) {
+      print('Error in Repository: $c');
+      return false;
+    }
+  }
 }
