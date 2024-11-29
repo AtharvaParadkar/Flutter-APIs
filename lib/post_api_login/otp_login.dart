@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:pinput/pinput.dart';
 
-class OtpLogin extends StatelessWidget {
+class OtpLogin extends StatefulWidget {
   const OtpLogin({super.key});
 
+  @override
+  State<OtpLogin> createState() => _OtpLoginState();
+}
+
+class _OtpLoginState extends State<OtpLogin> {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -64,6 +69,13 @@ class OtpLogin extends StatelessWidget {
                 },
               ),
               const Gap(25),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 60, 70, 80)),
+                child: const Text('Get OTP'),
+              ),
+              const Gap(35),
               Directionality(
                 textDirection: TextDirection.ltr,
                 child: Pinput(
@@ -100,20 +112,21 @@ class OtpLogin extends StatelessWidget {
                       ),
                     ),
                   ),
-                  errorPinTheme: defaultPinTheme.copyWith(
-                    decoration: defaultPinTheme.decoration!.copyWith(
-                      border: Border.all(
-                        color: const Color.fromARGB(255, 255, 0, 0),
-                      ),
-                    ),
-                  ),
+                  // errorPinTheme: defaultPinTheme.copyWith(
+                  //   decoration: defaultPinTheme.decoration!.copyWith(
+                  //     border: Border.all(
+                  //       color: const Color.fromARGB(255, 255, 0, 0),
+                  //     ),
+                  //   ),
+                  // ),
                 ),
               ),
-              const Gap(25),
+              const Gap(30),
               ElevatedButton(
                 onPressed: () {
                   focusNode.unfocus();
                   formKey.currentState!.validate();
+                  print('${phoneController.text}\t${otpController.text}');
                 },
                 // style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 60,70,80))),
                 style: ElevatedButton.styleFrom(
