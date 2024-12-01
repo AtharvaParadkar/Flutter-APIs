@@ -1,4 +1,8 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_apis/post_api_login/loggedin_screen.dart';
 import 'package:gap/gap.dart';
 import 'package:pinput/pinput.dart';
 
@@ -10,9 +14,9 @@ class OtpLogin extends StatefulWidget {
 }
 
 class _OtpLoginState extends State<OtpLogin> {
+  String? _verificationId;
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
     final TextEditingController phoneController = TextEditingController();
     final TextEditingController otpController = TextEditingController();
     final focusNode = FocusNode();
@@ -35,15 +39,13 @@ class _OtpLoginState extends State<OtpLogin> {
         title: const Text('OTP Login'),
         backgroundColor: Colors.transparent,
       ),
-      body: Form(
-        key: formKey,
-        child: Padding(
+      body:  Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextFormField(
-                maxLength: 10,
+              TextField(
+                maxLength: 13,
                 controller: phoneController,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
@@ -58,19 +60,40 @@ class _OtpLoginState extends State<OtpLogin> {
                     color: Colors.blue,
                   ),
                 ),
-                validator: (value) {
-                  if (value == null ||
-                      value.isEmpty ||
-                      value.trim().length <= 1 ||
-                      value.trim().length < 10) {
-                    return 'Enter valid phone number';
-                  }
-                  return null;
-                },
               ),
               const Gap(25),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await FirebaseAuth.instance.verifyPhoneNumber(
+                    verificationCompleted: (phoneAuthCredential) {},
+                    verificationFailed: (error) {
+                      log('Verification Failed $error');
+                    },
+                    codeSent: (verificationId, forceResendingToken) {
+                      setState(() {
+                        _verificationId = verificationId;
+                      });
+                      log('Code Sent $verificationId');
+                    },
+                    codeAutoRetrievalTimeout: (verificationId) {
+                      log('Auto Retrival Timeout');
+                    },
+                    phoneNumber: phoneController.text,
+                    // phoneNumber: '+91${phoneController.text}',
+                    // verificationCompleted: (PhoneAuthCredential credential) {},
+                    // verificationFailed: (FirebaseAuthException ex) {
+                    //   log('Verification Failed $ex');
+                    // },
+                    // codeSent: (String verificationid, int? resendToken) {
+                    //   setState(() {
+                    //     _verificationid = verificationid;
+                    //   });
+                    //   log('Code Sent $verificationid');
+                    // },
+                    // codeAutoRetrievalTimeout: (String verificationId) {},
+                    // phoneNumber: phoneController.text.toString(),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 60, 70, 80)),
                 child: const Text('Get OTP'),
@@ -78,12 +101,12 @@ class _OtpLoginState extends State<OtpLogin> {
               const Gap(35),
               Directionality(
                 textDirection: TextDirection.ltr,
-                child: Pinput(
+                child: Pinput(length: 6,
                   controller: otpController,
                   focusNode: focusNode,
                   defaultPinTheme: defaultPinTheme,
-                  separatorBuilder: (index) => const SizedBox(width: 20),
-                  validator: (value) => value == '0000' ? '✔️' : '❌',
+                  separatorBuilder: (index) => const SizedBox(width: 7),
+                  // validator: (value) => value == '0000' ? '✔️' : '❌',
                   cursor: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -123,10 +146,24 @@ class _OtpLoginState extends State<OtpLogin> {
               ),
               const Gap(30),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   focusNode.unfocus();
-                  formKey.currentState!.validate();
-                  print('${phoneController.text}\t${otpController.text}');
+                    try {
+                      final cred = PhoneAuthProvider.credential(
+                        verificationId: _verificationId!,
+                        smsCode: otpController.text,
+                      );
+                      await FirebaseAuth.instance.signInWithCredential(cred);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoggedInScreen(),
+                        ),
+                      );
+                    } catch (c) {
+                      log(c.toString());
+                    }
+                  
                 },
                 // style: const ButtonStyle(backgroundColor: WidgetStatePropertyAll(Color.fromARGB(255, 60,70,80))),
                 style: ElevatedButton.styleFrom(
@@ -136,7 +173,7 @@ class _OtpLoginState extends State<OtpLogin> {
             ],
           ),
         ),
-      ),
+      
     );
   }
 }
